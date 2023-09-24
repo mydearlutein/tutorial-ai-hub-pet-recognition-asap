@@ -4,6 +4,8 @@ argparse
 numpy
 h5py
 opencv-python==4.6.0.66
+opencv-python-headless==4.6.0.66
 imageio
 scikit-video
 natsort
+streamlit

@@ -34,11 +34,11 @@ if __name__ == "__main__":
     #     print('video successfully fetched!')
 
     # 테스트 방법 2) Frame만 가지고 테스트 - AI Hub에서 제공한 데이터 중 학습에 사용되지 않은 임의의 Frame image 경로 지정 
-    test_path = '../data/validation/'
+    test_path = '../test/'
     frame_path = test_path + [name for name in os.listdir(test_path) if not os.path.isfile(name)][0]
 
     # Keypoint RCNN 모델명 확보
-    model_dir = '../models'
+    model_dir = '../models/'
     pattern = r'RCNN_ep5_[0-9]+.[0-9]+.pt'
     model_path = model_dir + [name for name in os.listdir(model_dir) if re.match(pattern, name)][0]
 

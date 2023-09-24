@@ -45,35 +45,37 @@ tutorial-ai-hub-pet-recognition-asap
 
 ## 데이터 사전 작업
 1. **데이터 다운로드** <br>
-  다운로드 받은 데이터셋 중 [원본] 데이터셋 zip 파일은 /data/<training 또는 validation>/image 폴더에, [라벨] 데이터셋 zip 파일은 /data/<training 또는 validation>/label 폴더로 각각 이동해 압축을 해제한다.
+  다운로드 받은 데이터셋 중 [원본] 데이터셋 zip 파일은 `data/<training 또는 validation>/image` 폴더에, [라벨] 데이터셋 zip 파일은 `data/<training 또는 validation>/label` 폴더로 각각 이동해 압축을 해제한다.
   해제한 후 data 폴더의 모습은 아래와 같이 구조를 가진다.
     ```
-    data
-    ├─training
-    │    ├─image
-    │    │    ├─BDOYLOWER
-    │    │    ├─BODYSCRATCH
-    │    │    ├─BODYSHAKE
-    │    │    ├─FEETUP
-    │    │    ├─FOOTUP
-    │    │    ├─HEADING
-    │    │    ├─LYING
-    │    │    ├─MOUNTING
-    │    │    ├─SIT
-    │    │    ├─TAILING
-    │    │    ├─TAILLOW
-    │    │    ├─TURN
-    │    │    └─WALKRUN
-    │    │ 
-    │    └─label
-    │          └─(training/image 와 동일 폴더 반복)
-    │
-    └─validation
-          ├─image
-          │    └─(training/image 와 동일 폴더 반복)
-          │ 
-          └─label
-                └─(training/image 와 동일 폴더 반복)
+    tutorial-ai-hub-pet-recognition-asap
+    ├─data
+    │    ├─training
+    │    │    ├─image
+    │    │    │    ├─BODYLOWER
+    │    │    │    ├─BODYSCRATCH
+    │    │    │    ├─BODYSHAKE
+    │    │    │    ├─FEETUP
+    │    │    │    ├─FOOTUP
+    │    │    │    ├─HEADING
+    │    │    │    ├─LYING
+    │    │    │    ├─MOUNTING
+    │    │    │    ├─SIT
+    │    │    │    ├─TAILING
+    │    │    │    ├─TAILLOW
+    │    │    │    ├─TURN
+    │    │    │    └─WALKRUN
+    │    │    │ 
+    │    │    └─label
+    │    │          └─(training/image 와 동일 폴더 반복)
+    │    │
+    │    └─validation
+    │          ├─image
+    │          │    └─(training/image 와 동일 폴더 반복)
+    │          │ 
+    │          └─label
+    │                └─(training/image 와 동일 폴더 반복)
+    ...
     ```
 
 2. **데이터 전처리**<br>
@@ -84,7 +86,53 @@ tutorial-ai-hub-pet-recognition-asap
     ```
 
 3. **전처리 파일 확인**<br>
-  data 폴더 내에 data_annotaion.csv 파일이 생성되었는지 확인한다. 
+  data 폴더 내에 `data_annotaion.csv` 파일이 생성되었는지 확인한다. 
+
+<br>
+
+## Demo 서비스 기동
+Demo 서비스를 기동하기 위해서는 필요한 Python package 설치 후, 먼저 전처리한 데이터셋을 가지고 Keypoint 감지 모델을 학습해야 한다. <br>
+설치 대상 라이브러리는 demo/requirements.txt에 작성되어 있다.
+
+1. **Python package 설치**<br>
+    ```
+    pip install -r demo/requirements.txt
+    ```
+
+2. **Keypoint 감지 모델 학습**<br>
+    ```
+    cd KeypointRCNN
+    python train.py
+    ```
+
+3. **테스트 데이터 셋팅**<br>
+    테스트 방식은 2가지를 제공한다.
+
+    - 반려동물 영상을 Frame image로 변환해 테스트 하는 방법
+    - 미리 Frame image로 변환한 폴더를 확보해 테스트 하는 방법 <br>
+    <br>
+  
+    Demo 시연용으로 테스트할 데이터셋은 `test` 폴더에 위치 시킨다. <br>
+    예를 들면, 학습에 사용되지 않은 AI Hub의 validation 영상 `20201117-dog-walkrun-002943`을 테스트 하고자 한다면, 아래와 같이 위치 시킨다. 영상이 없는 경우에는 프레임 이미지 폴더만 위치시켜도 무방하다. 
+
+      ```
+      tutorial-ai-hub-pet-recognition-asap
+      ├─test
+      │    ├─20201117-dog-walkrun-002943.mp4    // 테스트 영상
+      │    │
+      │    └─20201117-dog-walkrun-002943        // 영상에 대한 프레임 이미지 폴더
+      │          ├─ frame_0_timestamp_0.jpg  
+      │          └─ ...
+      ...
+      ```
+
+4. **Demo 테스트**<br>
+    ```
+    // CLI 상에서 테스트
+    cd demo
+    python test_final.py recognition -c work_dir/stgcn_demo.yaml
+    ```
+
 
 <br>
 <br>

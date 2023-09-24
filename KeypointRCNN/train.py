@@ -72,8 +72,8 @@ def main():
     
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-    train_img_path = '../data/image/training'
-    train_key_path = '../data/training/data_annotations_1.csv'
+    train_img_path = '../data/training/image'
+    train_key_path = '../data/training/data_annotation.csv'
 
     train_loader, valid_loader = load_data(train_img_path, train_key_path)
     train_model(train_loader, valid_loader, num_epochs = 5, device = DEVICE) 

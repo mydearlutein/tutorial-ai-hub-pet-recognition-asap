@@ -45,6 +45,9 @@ def train_model(train_loader, val_loader, num_epochs = 30, device= 'cuda'):
     best_loss = 999999  # initialize best loss
     optimizer = optim.SGD(model.parameters(), lr=1e-4, momentum=0.9, weight_decay=5e-4)
 
+    # 모델 저장 위치
+    os.makedirs('../models', exist_ok=True)
+
     for epoch in range(1, num_epochs+1):
         since = time.time()
         train(model, train_loader, optimizer, epoch, device)
@@ -69,8 +72,8 @@ def main():
     
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-    train_img_path = '../images/images_1'
-    train_key_path = '../data/annotations_1.csv'
+    train_img_path = '../data/image'
+    train_key_path = '../data/data_annotations.csv'
 
     train_loader, valid_loader = load_data(train_img_path, train_key_path)
     train_model(train_loader, valid_loader, num_epochs = 5, device = DEVICE) 

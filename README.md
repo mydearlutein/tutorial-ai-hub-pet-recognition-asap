@@ -1,3 +1,112 @@
+# 반려동물 행동 구분 영상 데이터셋을 활용한 학습 환경 구성
+
+## Fork history
+원본 repository를 AI Hub 데이터를 연결해 실행을 편하게 하기 위해 Fork 했습니다.<br>
+개인적인 학습의 용도로 사용할 예정입니다. 원작자 분들 감사합니다.<br>
+디렉토리 구성은 다음과 같습니다. 
+
+## Prerequisite
+- Docker
+- NVIDIA GPUS + NVIDIA Drivers
+- AI Hub 데이터셋 [반려동물 구분을 위한 동물 영상](https://aihub.or.kr/aidata/34146) 다운로드 (강아지 기준 약 45GB 이상의 디스크 공간 필요)
+
+## Structure
+```
+tutorial-ai-hub-pet-recognition-asap
+│  .gitignore
+│  docker_run.sh        // Docker 기반 학습환경 실행 파일
+│  README.md
+│
+├─data                 // AI허브에서 다운받은 영상별 라벨 json 파일 위치
+│    ├─image
+│    │   ├─training
+│    │   └─validation
+│    └─labels
+│         ├─training
+│         └─validation
+│
+├─demo
+│    ... <각 디렉토리 README.md 참고>
+│
+├─HRNet
+│    ... <각 디렉토리 README.md 참고>
+│
+├─KeypointRCNN
+│    ... <각 디렉토리 README.md 참고>
+│      
+└─ST-GCN
+      ... <각 디렉토리 README.md 참고>
+```
+<br>
+
+## 학습 환경 기동
+1. **Docker container 기동** <br>
+  docker container 기동을 위한 bash script를 실행한다.
+    ```
+    chmod +x docker_run.sh
+    sh docker_run.sh
+    ```
+<br>
+
+## 데이터 사전 작업
+1. **데이터 다운로드** <br>
+  다운로드 받은 데이터셋 중 [원본] 데이터셋 zip 파일은 /data/training/image 폴더에, [라벨] 데이터셋 zip 파일은 /data/training/label 폴더로 각각 이동해 압축을 해제한다.
+  해제한 후 data 폴더의 모습은 아래와 같이 구조를 가진다.
+    ```
+    data
+    ├─image
+    │   ├─training
+    │   │    ├─BDOYLOWER
+    │   │    ├─BODYSCRATCH
+    │   │    ├─BODYSHAKE
+    │   │    ├─FEETUP
+    │   │    ├─FOOTUP
+    │   │    ├─HEADING
+    │   │    ├─LYING
+    │   │    ├─MOUNTING
+    │   │    ├─SIT
+    │   │    ├─TAILING
+    │   │    ├─TAILLOW
+    │   │    ├─TURN
+    │   │    └─WALKRUN
+    │   │ 
+    │   └─validation
+    │         └─(training과 동일 폴더 반복)
+    │
+    └─labels
+        ├─training
+        │    ├─BDOYLOWER
+        │    ├─BODYSCRATCH
+        │    ├─BODYSHAKE
+        │    ├─FEETUP
+        │    ├─FOOTUP
+        │    ├─HEADING
+        │    ├─LYING
+        │    ├─MOUNTING
+        │    ├─SIT
+        │    ├─TAILING
+        │    ├─TAILLOW
+        │    ├─TURN
+        │    └─WALKRUN
+        │ 
+        └─validation
+              └─ (training과 동일 폴더 반복)
+
+    ```
+
+**2. 데이터 전처리**<br>
+  Keypoint 감지 모델 (KeypointRCNN) 학습을 위한 데이터셋 구조로 변경하기 위해 아래와 같이 코드를 실행한다. 
+    ```
+    cd data
+    python data_formmatter.py
+    ```
+
+3. 전처리 파일 확인<br>
+  data 폴더 내에 data_annotaion.csv 파일이 생성되었는지 확인한다. 
+
+<br>
+<br>
+
 # ASAP: AI State Analysis of Pets 🐾
 Analysis of Pets Using Keypoint Detection and Skeleton-Based Action Recognition.<br>
 (2021.07.05~2021.08.23)

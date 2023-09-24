@@ -3,7 +3,7 @@ import json
 import os
 
 
-def main(data_path: str = './dog_sample'):
+def main(data_path: str = './dog_sample/training'):
 
     actions = ['BDOYLOWER','BODYSCRATCH','BODYSHAKE','FEETUP','FOOTUP','HEADING','LYING','MOUNTING','SIT','TAILING','TAILLOW','TURN','WALKRUN']
     headers = ['image'] + [element for pair in [(f'{i}_x', f'{i}_y') for i in range(15)] for element in pair]
@@ -11,8 +11,8 @@ def main(data_path: str = './dog_sample'):
     for action in actions:
         rows = []
 
-        base_image_path = os.path.join(data_path, 'image/training', action)
-        base_label_path = os.path.join(data_path, 'label/training', action)
+        base_image_path = os.path.join(data_path, 'image', action)
+        base_label_path = os.path.join(data_path, 'label', action)
         label_files = os.listdir(base_label_path)
 
         for label_fname in label_files:

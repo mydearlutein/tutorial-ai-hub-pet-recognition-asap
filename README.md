@@ -18,12 +18,7 @@ tutorial-ai-hub-pet-recognition-asap
 │  README.md
 │
 ├─data                 // AI허브에서 다운받은 영상별 라벨 json 파일 위치
-│    ├─image
-│    │   ├─training
-│    │   └─validation
-│    └─labels
-│         ├─training
-│         └─validation
+│    ... <하단 데이터 사전 작업 참고>
 │
 ├─demo
 │    ... <각 디렉토리 README.md 참고>
@@ -50,58 +45,45 @@ tutorial-ai-hub-pet-recognition-asap
 
 ## 데이터 사전 작업
 1. **데이터 다운로드** <br>
-  다운로드 받은 데이터셋 중 [원본] 데이터셋 zip 파일은 /data/training/image 폴더에, [라벨] 데이터셋 zip 파일은 /data/training/label 폴더로 각각 이동해 압축을 해제한다.
+  다운로드 받은 데이터셋 중 [원본] 데이터셋 zip 파일은 /data/<training 또는 validation>/image 폴더에, [라벨] 데이터셋 zip 파일은 /data/<training 또는 validation>/label 폴더로 각각 이동해 압축을 해제한다.
   해제한 후 data 폴더의 모습은 아래와 같이 구조를 가진다.
     ```
     data
-    ├─image
-    │   ├─training
-    │   │    ├─BDOYLOWER
-    │   │    ├─BODYSCRATCH
-    │   │    ├─BODYSHAKE
-    │   │    ├─FEETUP
-    │   │    ├─FOOTUP
-    │   │    ├─HEADING
-    │   │    ├─LYING
-    │   │    ├─MOUNTING
-    │   │    ├─SIT
-    │   │    ├─TAILING
-    │   │    ├─TAILLOW
-    │   │    ├─TURN
-    │   │    └─WALKRUN
-    │   │ 
-    │   └─validation
-    │         └─(training과 동일 폴더 반복)
+    ├─training
+    │    ├─image
+    │    │    ├─BDOYLOWER
+    │    │    ├─BODYSCRATCH
+    │    │    ├─BODYSHAKE
+    │    │    ├─FEETUP
+    │    │    ├─FOOTUP
+    │    │    ├─HEADING
+    │    │    ├─LYING
+    │    │    ├─MOUNTING
+    │    │    ├─SIT
+    │    │    ├─TAILING
+    │    │    ├─TAILLOW
+    │    │    ├─TURN
+    │    │    └─WALKRUN
+    │    │ 
+    │    └─label
+    │          └─(training/image 와 동일 폴더 반복)
     │
-    └─labels
-        ├─training
-        │    ├─BDOYLOWER
-        │    ├─BODYSCRATCH
-        │    ├─BODYSHAKE
-        │    ├─FEETUP
-        │    ├─FOOTUP
-        │    ├─HEADING
-        │    ├─LYING
-        │    ├─MOUNTING
-        │    ├─SIT
-        │    ├─TAILING
-        │    ├─TAILLOW
-        │    ├─TURN
-        │    └─WALKRUN
-        │ 
-        └─validation
-              └─ (training과 동일 폴더 반복)
-
+    └─validation
+          ├─image
+          │    └─(training/image 와 동일 폴더 반복)
+          │ 
+          └─label
+                └─(training/image 와 동일 폴더 반복)
     ```
 
-**2. 데이터 전처리**<br>
+2. **데이터 전처리**<br>
   Keypoint 감지 모델 (KeypointRCNN) 학습을 위한 데이터셋 구조로 변경하기 위해 아래와 같이 코드를 실행한다. 
     ```
     cd data
     python data_formmatter.py
     ```
 
-3. 전처리 파일 확인<br>
+3. **전처리 파일 확인**<br>
   data 폴더 내에 data_annotaion.csv 파일이 생성되었는지 확인한다. 
 
 <br>

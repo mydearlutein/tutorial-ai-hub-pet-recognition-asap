@@ -6,8 +6,9 @@
 디렉토리 구성은 다음과 같습니다. 
 
 ## Prerequisite
-- Docker
-- NVIDIA GPUS + NVIDIA Drivers
+- NVIDIA GPUs : GPU memory 14GB 이상 (최소 Tesla T4)
+- NVIDIA Drivers : 450.51 (or later R450), 470.57 (or later R470), 510.47 (or later R510), or 515.65 (or later R515)
+- Docker : 최신 버전 설치
 - AI Hub 데이터셋 [반려동물 구분을 위한 동물 영상](https://aihub.or.kr/aidata/34146) 다운로드 (강아지 기준 약 45GB 이상의 디스크 공간 필요)
 
 ## Structure
@@ -34,18 +35,9 @@ tutorial-ai-hub-pet-recognition-asap
 ```
 <br>
 
-## 학습 환경 기동
-1. **Docker container 기동** <br>
-  docker container 기동을 위한 bash script를 실행한다.
-    ```
-    chmod +x docker_run.sh
-    sh docker_run.sh
-    ```
-<br>
-
 ## 데이터 사전 작업
 1. **데이터 다운로드** <br>
-  다운로드 받은 데이터셋 중 [원본] 데이터셋 zip 파일은 `data/<training 또는 validation>/image` 폴더에, [라벨] 데이터셋 zip 파일은 `data/<training 또는 validation>/label` 폴더로 각각 이동해 압축을 해제한다.
+  다운로드 받은 데이터셋 중 `[원본] 데이터셋 zip` 파일은 `data/<training 또는 validation>/image` 폴더에, `[라벨] 데이터셋 zip` 파일은 `data/<training 또는 validation>/label` 폴더로 각각 이동해 압축을 해제한다.
   해제한 후 data 폴더의 모습은 아래와 같이 구조를 가진다.
     ```
     tutorial-ai-hub-pet-recognition-asap
@@ -74,7 +66,7 @@ tutorial-ai-hub-pet-recognition-asap
     │          │    └─(training/image 와 동일 폴더 반복)
     │          │ 
     │          └─label
-    │                └─(training/image 와 동일 폴더 반복)
+    │               └─(training/image 와 동일 폴더 반복)
     ...
     ```
 
@@ -88,6 +80,18 @@ tutorial-ai-hub-pet-recognition-asap
 3. **전처리 파일 확인**<br>
   data 폴더 내에 `data_annotaion.csv` 파일이 생성되었는지 확인한다. 
 
+<br>
+
+## 학습 환경 기동
+1. **Docker container 기동** <br>
+  docker container 기동을 위한 bash script를 실행한다.
+    ```
+    chmod +x docker_run.sh
+    sh docker_run.sh
+    ```
+<br>
+
+2. 스크립트 실행에 성공하면, docker container 내 /workspace 위치에 있게 된다.
 <br>
 
 ## Demo 서비스 기동

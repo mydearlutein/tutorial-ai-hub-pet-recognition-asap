@@ -3,10 +3,9 @@ import json
 import os
 
 
-def main(data_path: str = './dog_sample/training'):
+def main(data_path: str = './training'):
 
-    # actions = ['BODYLOWER','BODYSCRATCH','BODYSHAKE','FEETUP','FOOTUP','HEADING','LYING','MOUNTING','SIT','TAILING','TAILLOW','TURN','WALKRUN']
-    actions = ['BODYLOWER','FOOTUP']
+    actions = ['BODYLOWER','BODYSCRATCH','BODYSHAKE','FEETUP','FOOTUP','HEADING','LYING','MOUNTING','SIT','TAILING','TAILLOW','TURN','WALKRUN']
     headers = ['image'] + [element for pair in [(f'{i}_x', f'{i}_y') for i in range(15)] for element in pair]
 
     rows = []

@@ -15,7 +15,7 @@
     git --version
     ```
 
-- Docker: Docker 설치 스크립트 `docker_install.sh` 파일을 실행한 후 편하게 실행하기 위해 몇가지 설정을 추가한다.
+- Docker: Docker 설치 스크립트 `docker_install.sh` 파일을 실행한 후 편하게 실행하기 위해 몇가지 설정을 추가합니다.
     ```bash
     # Docker 설치 확인
     docker --version
@@ -40,13 +40,22 @@
     docker ps
     ```
 
-- NVIDIA Drivers
+- NVIDIA Drivers: Linux Debian 11 기준 (GCP VM 기본 설정)으로 [CUDA Toolkit Downloads](https://developer.nvidia.com/cuda-downloads) 페이지를 참고하였습니다.
     ```bash
     # NVIDIA Driver 설치 확인
     nvidia-smi
 
-    # NVIDIA Driver 설치
-    sudo apt install nvidia-driver-510
+    # apt repository 설정
+    sudo add-apt-repository contrib
+
+    # 위 명령어에서 add-apt-repository가 없다고 나오면 아래 실행. 그렇지 않으면 skip해도 됨
+    sudo apt-get -y install software-properties-common
+
+    # NVIDIA Driver 설치 (network 모드)
+    wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.1-1_all.deb
+    sudo dpkg -i cuda-keyring_1.1-1_all.deb
+    sudo apt-get update
+    sudo apt-get -y install cuda
 
     # NVIDIA Driver 설치 재확인
     nvidia-smi

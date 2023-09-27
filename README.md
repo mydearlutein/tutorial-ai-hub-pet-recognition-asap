@@ -6,6 +6,8 @@
 디렉토리 구성은 다음과 같습니다. 
 
 ## Prerequisite
+설치가 필요한 Linux 패키지는 [VM에 필요한 ubuntu 패키지 설치 가이드](./VM-INSTALL.md)에 설치 방법을 작성하였습니다. 
+
 - NVIDIA GPUs : GPU memory 14GB 이상 (최소 Tesla T4)
 - NVIDIA Drivers : 450.51 (or later R450), 470.57 (or later R470), 510.47 (or later R510), or 515.65 (or later R515)
 - Docker : 최신 버전 설치
@@ -72,7 +74,7 @@ tutorial-ai-hub-pet-recognition-asap
 
 2. **데이터 전처리**<br>
   Keypoint 감지 모델 (KeypointRCNN) 학습을 위한 데이터셋 구조로 변경하기 위해 아래와 같이 코드를 실행한다. 
-    ```
+    ```bash
     cd data
     python data_formmatter.py
     ```
@@ -85,7 +87,7 @@ tutorial-ai-hub-pet-recognition-asap
 ## 학습 환경 기동
 1. **Docker container 기동** <br>
   docker container 기동을 위한 bash script를 실행한다.
-    ```
+    ```bash
     chmod +x docker_run.sh
     sh docker_run.sh
     ```
@@ -99,12 +101,12 @@ Demo 서비스를 기동하기 위해서는 필요한 Python package 설치 후,
 설치 대상 라이브러리는 demo/requirements.txt에 작성되어 있다.
 
 1. **Python package 설치**<br>
-    ```
+    ```bash
     pip install -r demo/requirements.txt
     ```
 
 2. **Keypoint 감지 모델 학습**<br>
-    ```
+    ```bash
     cd KeypointRCNN
     python train.py
     ```
@@ -131,8 +133,8 @@ Demo 서비스를 기동하기 위해서는 필요한 Python package 설치 후,
       ```
 
 4. **Demo 테스트**<br>
-    ```
-    // CLI 상에서 테스트
+    ```bash
+    # CLI 상에서 테스트
     cd demo
     python test_final.py recognition -c work_dir/stgcn_demo.yaml
     ```

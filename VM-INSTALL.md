@@ -40,26 +40,47 @@
     docker ps
     ```
 
-- NVIDIA Drivers: Linux Debian 11 기준 (GCP VM 기본 설정)으로 [CUDA Toolkit Downloads](https://developer.nvidia.com/cuda-downloads) 페이지를 참고하였습니다.
-    ```bash
-    # NVIDIA Driver 설치 확인
-    nvidia-smi
+- NVIDIA Drivers
+    1. Linux Debian 11 기준 (GCP VM 기본 설정)으로 [CUDA Toolkit Downloads](https://developer.nvidia.com/cuda-downloads) 페이지를 참고하였습니다.
+        ```bash
+        # NVIDIA Driver 설치 확인
+        nvidia-smi
 
-    # apt repository 설정
-    sudo add-apt-repository contrib
+        # apt repository 설정
+        sudo add-apt-repository contrib
 
-    # 위 명령어에서 add-apt-repository가 없다고 나오면 아래 실행. 그렇지 않으면 skip해도 됨
-    sudo apt-get -y install software-properties-common
+        # 위 명령어에서 add-apt-repository가 없다고 나오면 아래 실행. 그렇지 않으면 skip해도 됨
+        sudo apt-get -y install software-properties-common
 
-    # NVIDIA Driver 설치 (network 모드)
-    wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.1-1_all.deb
-    sudo dpkg -i cuda-keyring_1.1-1_all.deb
-    sudo apt-get update
-    sudo apt-get -y install cuda
+        # NVIDIA Driver 설치 (network 모드)
+        wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.1-1_all.deb
+        sudo dpkg -i cuda-keyring_1.1-1_all.deb
+        sudo apt-get update
+        sudo apt-get -y install cuda
 
-    # NVIDIA Driver 설치 재확인
-    nvidia-smi
-    ```
+        # NVIDIA Driver 설치 재확인
+        nvidia-smi
+        ```
+
+    2. Linux Ubuntu 20.04 기준 
+        ```bash
+        # NVIDIA Driver 설치 확인
+        nvidia-smi
+
+        # apt repository 설정
+        sudo apt-get update && sudo apt-get upgrade
+        ubuntu-drivers devices
+
+        # 위 명령어에서 추천하는 driver 버전을 확인한 후 설치
+        sudo apt install nvidia-driver-<버전>
+
+        # VM 리부팅
+        sudo reboot 
+
+        # NVIDIA Driver 설치 재확인
+        nvidia-smi
+        ```
+
 
 - Unzip
     ```bash

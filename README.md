@@ -3,7 +3,7 @@
 ## Fork history
 원본 repository를 AI Hub 데이터를 연결해 실행을 편하게 하기 위해 Fork 했습니다.<br>
 개인적인 학습의 용도로 사용할 예정입니다. 원작자 분들 감사합니다.<br>
-디렉토리 구성은 다음과 같습니다. 
+<br>
 
 ## Prerequisite
 설치가 필요한 Linux 패키지는 [VM에 필요한 ubuntu 패키지 설치 가이드](./VM-INSTALL.md)에 설치 방법을 작성하였습니다. 
@@ -12,6 +12,7 @@
 - NVIDIA Drivers : 450.51 (or later R450), 470.57 (or later R470), 510.47 (or later R510), or 515.65 (or later R515)
 - Docker : 최신 버전 설치
 - AI Hub 데이터셋 [반려동물 구분을 위한 동물 영상](https://aihub.or.kr/aidata/34146) 다운로드 (강아지 기준 약 45GB 이상의 디스크 공간 필요)
+<br>
 
 ## Structure
 ```
@@ -37,51 +38,39 @@ tutorial-ai-hub-pet-recognition-asap
 ```
 <br>
 
-## 데이터 사전 작업
-1. **데이터 다운로드** <br>
-  다운로드 받은 데이터셋 중 `[원본] 데이터셋 zip` 파일은 `data/<training 또는 validation>/image` 폴더에, `[라벨] 데이터셋 zip` 파일은 `data/<training 또는 validation>/label` 폴더로 각각 이동해 압축을 해제한다.
-  해제한 후 data 폴더의 모습은 아래와 같이 구조를 가진다.
-    ```
-    tutorial-ai-hub-pet-recognition-asap
-    ├─data
-    │    ├─training
-    │    │    ├─image
-    │    │    │    ├─BODYLOWER
-    │    │    │    ├─BODYSCRATCH
-    │    │    │    ├─BODYSHAKE
-    │    │    │    ├─FEETUP
-    │    │    │    ├─FOOTUP
-    │    │    │    ├─HEADING
-    │    │    │    ├─LYING
-    │    │    │    ├─MOUNTING
-    │    │    │    ├─SIT
-    │    │    │    ├─TAILING
-    │    │    │    ├─TAILLOW
-    │    │    │    ├─TURN
-    │    │    │    └─WALKRUN
-    │    │    │ 
-    │    │    └─label
-    │    │          └─(training/image 와 동일 폴더 반복)
-    │    │
-    │    └─validation
-    │          ├─image
-    │          │    └─(training/image 와 동일 폴더 반복)
-    │          │ 
-    │          └─label
-    │               └─(training/image 와 동일 폴더 반복)
-    ...
-    ```
-
-2. **데이터 전처리**<br>
-  Keypoint 감지 모델 (KeypointRCNN) 학습을 위한 데이터셋 구조로 변경하기 위해 아래와 같이 코드를 실행한다. 
-    ```bash
-    cd data
-    python data_formmatter.py
-    ```
-
-3. **전처리 파일 확인**<br>
-  data 폴더 내에 `data_annotaion.csv` 파일이 생성되었는지 확인한다. 
-
+## 데이터 폴더 구성
+다운로드 받은 데이터셋 중 `[원본] 데이터셋 zip` 파일은 `data/<training 또는 validation>/image` 폴더에, `[라벨] 데이터셋 zip` 파일은 `data/<training 또는 validation>/label` 폴더로 각각 이동해 압축을 해제한다.
+해제한 후 data 폴더의 모습은 아래와 같이 구조를 가진다.
+  ```
+  tutorial-ai-hub-pet-recognition-asap
+  ├─data
+  │    ├─training
+  │    │    ├─image
+  │    │    │    ├─BODYLOWER
+  │    │    │    ├─BODYSCRATCH
+  │    │    │    ├─BODYSHAKE
+  │    │    │    ├─FEETUP
+  │    │    │    ├─FOOTUP
+  │    │    │    ├─HEADING
+  │    │    │    ├─LYING
+  │    │    │    ├─MOUNTING
+  │    │    │    ├─SIT
+  │    │    │    ├─TAILING
+  │    │    │    ├─TAILLOW
+  │    │    │    ├─TURN
+  │    │    │    └─WALKRUN
+  │    │    │ 
+  │    │    └─label
+  │    │          └─(training/image 와 동일 폴더 반복)
+  │    │
+  │    └─validation
+  │          ├─image
+  │          │    └─(training/image 와 동일 폴더 반복)
+  │          │ 
+  │          └─label
+  │               └─(training/image 와 동일 폴더 반복)
+  ...
+  ```
 <br>
 
 ## 학습 환경 기동
@@ -95,6 +84,20 @@ tutorial-ai-hub-pet-recognition-asap
 
 2. 스크립트 실행에 성공하면, docker container 내 /workspace 위치에 있게 된다.
 <br>
+
+
+## 데이터 전처리
+1. Keypoint 감지 모델 (KeypointRCNN) 학습을 위한 데이터셋 구조로 변경하기 위해 아래와 같이 코드를 실행한다. 
+    ```bash
+    cd data
+    python data_formmatter.py
+    ```
+<br>
+
+2. **전처리 파일 확인**<br>
+  data 폴더 내에 `data_annotaion.csv` 파일이 생성되었는지 확인한다. 
+<br>
+
 
 ## Demo 서비스 기동
 Demo 서비스를 기동하기 위해서는 필요한 Python package 설치 후, 먼저 전처리한 데이터셋을 가지고 Keypoint 감지 모델을 학습해야 한다. <br>

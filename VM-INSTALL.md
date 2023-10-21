@@ -34,6 +34,7 @@
 
     # Docker 실행 권한 추가 
     sudo chmod 666 /var/run/docker.sock
+    sudo usermod -a -G docker vmadmin
     sudo service docker restart
 
     # Docker 명렁어 테스트 
@@ -69,6 +70,8 @@
 
         # apt repository 설정
         sudo apt-get update && sudo apt-get upgrade
+
+        sudo apt install ubuntu-drivers-common
         ubuntu-drivers devices
 
         # 위 명령어에서 추천하는 driver 버전을 확인한 후 설치
